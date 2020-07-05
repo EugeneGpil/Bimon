@@ -2,17 +2,21 @@
     <div>
         <div v-if='!isLessonComplete'>
             <div v-for='question in questions' :key='question.id'>
-                <div :class="question.is_active ? '' : 'hidden'">
+                <div 
+                    :class="question.is_active ? '' : 'hidden'"
+                    class='text'
+                >
                     {{ getRandomQuestion(question) }}
+                    <br>
                     <input v-model="question.answer">
                 </div>
             </div>
-            <div @click='nextQuestion()'>
+            <div @click='nextQuestion()' class='text next-button'>
                 Next
             </div>
         </div>
 
-        <div v-if='isLessonComplete'>
+        <div v-if='isLessonComplete' class='text'>
             Complete
             {{ countOfMistakes == 0 ? '* * * * *' : '' }}
             {{ countOfMistakes == 1 ? '* * * *' : ''}}
@@ -91,5 +95,8 @@ export default {
 <style scoped>
 .hidden {
     display: none;
+}
+.next-button {
+    margin-top: 40px;
 }
 </style>

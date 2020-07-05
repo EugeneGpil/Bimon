@@ -1934,6 +1934,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'lesson',
@@ -2023,6 +2027,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'subject',
   data: function data() {
@@ -2051,6 +2057,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -2091,7 +2099,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.hidden[data-v-5beaa401] {\n    display: none;\n}\n", ""]);
+exports.push([module.i, "\n.hidden[data-v-5beaa401] {\n    display: none;\n}\n.next-button[data-v-5beaa401] {\n    margin-top: 40px;\n}\n", ""]);
 
 // exports
 
@@ -20379,38 +20387,48 @@ var render = function() {
           [
             _vm._l(_vm.questions, function(question) {
               return _c("div", { key: question.id }, [
-                _c("div", { class: question.is_active ? "" : "hidden" }, [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.getRandomQuestion(question)) +
-                      "\n                "
-                  ),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: question.answer,
-                        expression: "question.answer"
-                      }
-                    ],
-                    domProps: { value: question.answer },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                _c(
+                  "div",
+                  {
+                    staticClass: "text",
+                    class: question.is_active ? "" : "hidden"
+                  },
+                  [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(_vm.getRandomQuestion(question)) +
+                        "\n                "
+                    ),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: question.answer,
+                          expression: "question.answer"
                         }
-                        _vm.$set(question, "answer", $event.target.value)
+                      ],
+                      domProps: { value: question.answer },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(question, "answer", $event.target.value)
+                        }
                       }
-                    }
-                  })
-                ])
+                    })
+                  ]
+                )
               ])
             }),
             _vm._v(" "),
             _c(
               "div",
               {
+                staticClass: "text next-button",
                 on: {
                   click: function($event) {
                     return _vm.nextQuestion()
@@ -20425,7 +20443,7 @@ var render = function() {
       : _vm._e(),
     _vm._v(" "),
     _vm.isLessonComplete
-      ? _c("div", [
+      ? _c("div", { staticClass: "text" }, [
           _vm._v(
             "\n        Complete\n        " +
               _vm._s(_vm.countOfMistakes == 0 ? "* * * * *" : "") +
@@ -20482,7 +20500,11 @@ var render = function() {
       return _c(
         "router-link",
         { key: lesson.id, attrs: { to: "/lesson/" + lesson.id } },
-        [_vm._v("\n        " + _vm._s(lesson.name) + "\n    ")]
+        [
+          _c("div", { staticClass: "text" }, [
+            _vm._v("\n            " + _vm._s(lesson.name) + "\n        ")
+          ])
+        ]
       )
     }),
     1
@@ -20516,7 +20538,11 @@ var render = function() {
       return _c(
         "router-link",
         { key: subject.id, attrs: { to: "/subject/" + subject.id } },
-        [_vm._v("\n        " + _vm._s(subject.name) + "\n    ")]
+        [
+          _c("div", { staticClass: "text" }, [
+            _vm._v("\n            " + _vm._s(subject.name) + "\n        ")
+          ])
+        ]
       )
     }),
     1

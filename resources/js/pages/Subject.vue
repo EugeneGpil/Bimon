@@ -3,7 +3,9 @@
         <router-link v-for='lesson in lessons' v-bind:key='lesson.id'
             :to='`/lesson/${lesson.id}`'
         >
-            {{ lesson.name }}
+            <div class='text'>
+                {{ lesson.name }}
+            </div>
         </router-link>
     </div>
 </template>

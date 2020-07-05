@@ -3,7 +3,9 @@
         <router-link v-for='subject in subjects' v-bind:key='subject.id'
             :to='`/subject/${subject.id}`'
         >
-            {{ subject.name }}
+            <div class='text'>
+                {{ subject.name }}
+            </div>
         </router-link>
     </div>
 </template>
