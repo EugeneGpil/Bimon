@@ -18,11 +18,24 @@
 
         <div v-if='isLessonComplete' class='text'>
             Complete
-            {{ countOfMistakes == 0 ? '* * * * *' : '' }}
-            {{ countOfMistakes == 1 ? '* * * *' : ''}}
-            {{ countOfMistakes == 2 || countOfMistakes == 3 ? '* * *' : ''}}
-            {{ countOfMistakes >= 4 && countOfMistakes <= 6 ? '* *' : ''}}
-            {{ countOfMistakes >= 7 && countOfMistakes <= 9 ? '*' : ''}}
+            <div class='correct'>
+                {{ countOfMistakes == 0 ? '* * * * *' : '' }}
+                {{ countOfMistakes == 1 ? '* * * *' : '' }}
+                {{ countOfMistakes == 2 || countOfMistakes == 3 ? '* * *' : '' }}
+                {{ countOfMistakes >= 4 && countOfMistakes <= 6 ? '* *' : '' }}
+                {{ countOfMistakes >= 7 && countOfMistakes <= 9 ? '*' : '' }}
+            </div>
+            <div v-for='question in questions' :key='question.id' class='answer-check'>
+                <div>
+                    {{ JSON.parse(question.questions)[0] }}
+                </div>
+                <div :class="isAnswerRight(question) ? 'correct' : 'wrong'">
+                    {{ question.answer === '' || question.answer === undefined ? '_____' : question.answer}}
+                </div>
+                <div v-if='!isAnswerRight(question)' class='correct'>
+                    {{ JSON.parse(question.answers)[0]}}
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -87,6 +100,16 @@ export default {
                 }
             }
             return countOfMistakes;
+        },
+        isAnswerRight(question) {
+            let rightAnswers = JSON.parse(question.answers);
+            let answer = question.answer;
+            for (let i = 0; i < rightAnswers.length; i++) {
+                if (answer == rightAnswers[i]) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
@@ -97,6 +120,16 @@ export default {
     display: none;
 }
 .next-button {
+    margin-top: 40px;
+}
+.correct {
+    color: green;
+}
+.wrong {
+    color: red;
+    text-decoration: line-through;
+}
+.answer-check {
     margin-top: 40px;
 }
 </style>

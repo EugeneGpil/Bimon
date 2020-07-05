@@ -1938,6 +1938,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'lesson',
@@ -2002,6 +2015,18 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return countOfMistakes;
+    },
+    isAnswerRight: function isAnswerRight(question) {
+      var rightAnswers = JSON.parse(question.answers);
+      var answer = question.answer;
+
+      for (var i = 0; i < rightAnswers.length; i++) {
+        if (answer == rightAnswers[i]) {
+          return true;
+        }
+      }
+
+      return false;
     }
   }
 });
@@ -2099,7 +2124,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.hidden[data-v-5beaa401] {\n    display: none;\n}\n.next-button[data-v-5beaa401] {\n    margin-top: 40px;\n}\n", ""]);
+exports.push([module.i, "\n.hidden[data-v-5beaa401] {\n    display: none;\n}\n.next-button[data-v-5beaa401] {\n    margin-top: 40px;\n}\n.correct[data-v-5beaa401] {\n    color: green;\n}\n.wrong[data-v-5beaa401] {\n    color: red;\n    text-decoration: line-through;\n}\n.answer-check[data-v-5beaa401] {\n    margin-top: 40px;\n}\n", ""]);
 
 // exports
 
@@ -20444,31 +20469,86 @@ var render = function() {
       : _vm._e(),
     _vm._v(" "),
     _vm.isLessonComplete
-      ? _c("div", { staticClass: "text" }, [
-          _vm._v(
-            "\n        Complete\n        " +
-              _vm._s(_vm.countOfMistakes == 0 ? "* * * * *" : "") +
-              "\n        " +
-              _vm._s(_vm.countOfMistakes == 1 ? "* * * *" : "") +
-              "\n        " +
-              _vm._s(
-                _vm.countOfMistakes == 2 || _vm.countOfMistakes == 3
-                  ? "* * *"
-                  : ""
-              ) +
-              "\n        " +
-              _vm._s(
-                _vm.countOfMistakes >= 4 && _vm.countOfMistakes <= 6
-                  ? "* *"
-                  : ""
-              ) +
-              "\n        " +
-              _vm._s(
-                _vm.countOfMistakes >= 7 && _vm.countOfMistakes <= 9 ? "*" : ""
-              ) +
-              "\n    "
-          )
-        ])
+      ? _c(
+          "div",
+          { staticClass: "text" },
+          [
+            _vm._v("\n        Complete\n        "),
+            _c("div", { staticClass: "correct" }, [
+              _vm._v(
+                "\n            " +
+                  _vm._s(_vm.countOfMistakes == 0 ? "* * * * *" : "") +
+                  "\n            " +
+                  _vm._s(_vm.countOfMistakes == 1 ? "* * * *" : "") +
+                  "\n            " +
+                  _vm._s(
+                    _vm.countOfMistakes == 2 || _vm.countOfMistakes == 3
+                      ? "* * *"
+                      : ""
+                  ) +
+                  "\n            " +
+                  _vm._s(
+                    _vm.countOfMistakes >= 4 && _vm.countOfMistakes <= 6
+                      ? "* *"
+                      : ""
+                  ) +
+                  "\n            " +
+                  _vm._s(
+                    _vm.countOfMistakes >= 7 && _vm.countOfMistakes <= 9
+                      ? "*"
+                      : ""
+                  ) +
+                  "\n        "
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.questions, function(question) {
+              return _c(
+                "div",
+                { key: question.id, staticClass: "answer-check" },
+                [
+                  _c("div", [
+                    _vm._v(
+                      "\n                " +
+                        _vm._s(JSON.parse(question.questions)[0]) +
+                        "\n            "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      class: _vm.isAnswerRight(question) ? "correct" : "wrong"
+                    },
+                    [
+                      _vm._v(
+                        "\n                " +
+                          _vm._s(
+                            question.answer === "" ||
+                              question.answer === undefined
+                              ? "_____"
+                              : question.answer
+                          ) +
+                          "\n            "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  !_vm.isAnswerRight(question)
+                    ? _c("div", { staticClass: "correct" }, [
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(JSON.parse(question.answers)[0]) +
+                            "\n            "
+                        )
+                      ])
+                    : _vm._e()
+                ]
+              )
+            })
+          ],
+          2
+        )
       : _vm._e()
   ])
 }
