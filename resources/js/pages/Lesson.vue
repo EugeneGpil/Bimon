@@ -8,7 +8,10 @@
                 >
                     {{ getRandomQuestion(question) }}
                     <br>
-                    <input v-model="question.answer" class='text'>
+                    <input v-model="question.answer" class='text'
+                        v-on:keyup.enter='nextQuestion()'
+                        :ref='`ref${question.id}`'
+                    >
                 </div>
             </div>
             <div @click='nextQuestion()' class='text next-button'>
@@ -58,6 +61,11 @@ export default {
             this.questions[0].is_active = true;
         });
     },
+    created() {
+        setTimeout(() => {
+            this.$nextTick(() => this.setFocus(`ref${this.questions[0].id}`), true);
+        }, 1000);
+    },
     methods: {
         nextQuestion: function() {
             let questions = JSON.parse(JSON.stringify(this.questions));
@@ -66,6 +74,7 @@ export default {
                     if (i < questions.length - 1) {
                         questions[i].is_active = false,
                         questions[i + 1].is_active = true;
+                        this.setFocus(`ref${questions[i + 1].id}`);
                         break;
                     } else {
                         this.completeLesson();
@@ -110,6 +119,15 @@ export default {
                 }
             }
             return false;
+        },
+        setFocus(ref, fast = false) {
+            if (fast) {
+                this.$refs[ref][0].focus();
+                return;
+            }
+            setTimeout(() => {
+                this.$refs[ref][0].focus();
+            }, 200);
         }
     }
 }

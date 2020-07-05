@@ -1951,6 +1951,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'lesson',
@@ -1969,6 +1972,15 @@ __webpack_require__.r(__webpack_exports__);
       _this.questions[0].is_active = true;
     });
   },
+  created: function created() {
+    var _this2 = this;
+
+    setTimeout(function () {
+      _this2.$nextTick(function () {
+        return _this2.setFocus("ref".concat(_this2.questions[0].id));
+      }, true);
+    }, 1000);
+  },
   methods: {
     nextQuestion: function nextQuestion() {
       var questions = JSON.parse(JSON.stringify(this.questions));
@@ -1977,6 +1989,7 @@ __webpack_require__.r(__webpack_exports__);
         if (questions[i].is_active) {
           if (i < questions.length - 1) {
             questions[i].is_active = false, questions[i + 1].is_active = true;
+            this.setFocus("ref".concat(questions[i + 1].id));
             break;
           } else {
             this.completeLesson();
@@ -2027,6 +2040,20 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return false;
+    },
+    setFocus: function setFocus(ref) {
+      var _this3 = this;
+
+      var fast = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+      if (fast) {
+        this.$refs[ref][0].focus();
+        return;
+      }
+
+      setTimeout(function () {
+        _this3.$refs[ref][0].focus();
+      }, 200);
     }
   }
 });
@@ -20435,9 +20462,26 @@ var render = function() {
                           expression: "question.answer"
                         }
                       ],
+                      ref: "ref" + question.id,
+                      refInFor: true,
                       staticClass: "text",
                       domProps: { value: question.answer },
                       on: {
+                        keyup: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.nextQuestion()
+                        },
                         input: function($event) {
                           if ($event.target.composing) {
                             return
