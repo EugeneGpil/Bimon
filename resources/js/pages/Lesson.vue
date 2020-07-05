@@ -141,6 +141,7 @@ export default {
             questions[0].is_active = true;
             this.isLessonComplete = false;
             this.questions = questions;
+            this.setFocus(`ref${questions[0].id}`);
         }
     }
 }

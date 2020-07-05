@@ -2066,6 +2066,7 @@ __webpack_require__.r(__webpack_exports__);
       questions[0].is_active = true;
       this.isLessonComplete = false;
       this.questions = questions;
+      this.setFocus("ref".concat(questions[0].id));
     }
   }
 });
