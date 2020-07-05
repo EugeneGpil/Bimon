@@ -8,7 +8,7 @@
                 >
                     {{ getRandomQuestion(question) }}
                     <br>
-                    <input v-model="question.answer">
+                    <input v-model="question.answer" class='text'>
                 </div>
             </div>
             <div @click='nextQuestion()' class='text next-button'>

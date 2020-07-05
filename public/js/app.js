@@ -20410,6 +20410,7 @@ var render = function() {
                           expression: "question.answer"
                         }
                       ],
+                      staticClass: "text",
                       domProps: { value: question.answer },
                       on: {
                         input: function($event) {
