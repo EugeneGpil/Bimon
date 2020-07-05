@@ -1955,6 +1955,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'lesson',
@@ -1979,7 +1985,7 @@ __webpack_require__.r(__webpack_exports__);
     setTimeout(function () {
       _this2.$nextTick(function () {
         return _this2.setFocus("ref".concat(_this2.questions[0].id));
-      }, true);
+      });
     }, 1000);
   },
   methods: {
@@ -2045,16 +2051,21 @@ __webpack_require__.r(__webpack_exports__);
     setFocus: function setFocus(ref) {
       var _this3 = this;
 
-      var fast = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-      if (fast) {
-        this.$refs[ref][0].focus();
-        return;
-      }
-
       setTimeout(function () {
         _this3.$refs[ref][0].focus();
       }, 200);
+    },
+    restartLesson: function restartLesson() {
+      var questions = JSON.parse(JSON.stringify(this.questions));
+
+      for (var i = 0; i < questions.length; i++) {
+        questions[i].is_active = false;
+        questions[i].answer = undefined;
+      }
+
+      questions[0].is_active = true;
+      this.isLessonComplete = false;
+      this.questions = questions;
     }
   }
 });
@@ -2152,7 +2163,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.hidden[data-v-5beaa401] {\n    display: none;\n}\n.next-button[data-v-5beaa401] {\n    margin-top: 40px;\n}\n.correct[data-v-5beaa401] {\n    color: green;\n}\n.wrong[data-v-5beaa401] {\n    color: red;\n    text-decoration: line-through;\n}\n.answer-check[data-v-5beaa401] {\n    margin-top: 40px;\n}\n", ""]);
+exports.push([module.i, "\n.hidden[data-v-5beaa401] {\n    display: none;\n}\n.next-button[data-v-5beaa401] {\n    margin-top: 40px;\n    display: block;\n}\n.correct[data-v-5beaa401] {\n    color: green;\n}\n.wrong[data-v-5beaa401] {\n    color: red;\n    text-decoration: line-through;\n}\n.answer-check[data-v-5beaa401] {\n    margin-top: 40px;\n}\n", ""]);
 
 // exports
 
@@ -20692,7 +20703,26 @@ var render = function() {
                     : _vm._e()
                 ]
               )
-            })
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "next-button",
+                on: {
+                  click: function($event) {
+                    return _vm.restartLesson()
+                  }
+                }
+              },
+              [_vm._v("\n            Again\n        ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "router-link",
+              { staticClass: "next-button", attrs: { to: "/" } },
+              [_vm._v("\n            Home\n        ")]
+            )
           ],
           2
         )
@@ -37330,7 +37360,9 @@ var questions = {
       var mainQuestions = questions.state.getMainQuestions(allQuestions);
       var allSecondaryQuestions = questions.state.getAllSecondaryQuestions(allQuestions);
       var secondaryQuestions = questions.state.getRandomQuestions(allSecondaryQuestions, mainQuestions.length);
-      return mainQuestions.concat(secondaryQuestions);
+      var selectedQuestions = mainQuestions.concat(secondaryQuestions);
+      var mixedQuestions = questions.state.getShuffledArray(selectedQuestions);
+      return mixedQuestions;
     },
     getMainQuestions: function getMainQuestions(allQuestions) {
       var mainQuestions = [];
@@ -37374,6 +37406,18 @@ var questions = {
       }
 
       return randomQuestions;
+    },
+    getShuffledArray: function getShuffledArray(array) {
+      var arrayToReturn = JSON.parse(JSON.stringify(array));
+
+      for (var i = arrayToReturn.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var _ref = [arrayToReturn[j], arrayToReturn[i]];
+        arrayToReturn[i] = _ref[0];
+        arrayToReturn[j] = _ref[1];
+      }
+
+      return arrayToReturn;
     }
   },
   mutations: {// setUsername(state, username) {

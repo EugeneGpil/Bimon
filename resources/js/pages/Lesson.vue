@@ -40,6 +40,12 @@
                     {{ JSON.parse(question.answers)[0]}}
                 </div>
             </div>
+            <div @click='restartLesson()' class='next-button'>
+                Again
+            </div>
+            <router-link to='/' class='next-button'>
+                Home
+            </router-link>
         </div>
     </div>
 </template>
@@ -64,7 +70,7 @@ export default {
     },
     created() {
         setTimeout(() => {
-            this.$nextTick(() => this.setFocus(`ref${this.questions[0].id}`), true);
+            this.$nextTick(() => this.setFocus(`ref${this.questions[0].id}`));
         }, 1000);
     },
     methods: {
@@ -121,14 +127,20 @@ export default {
             }
             return false;
         },
-        setFocus(ref, fast = false) {
-            if (fast) {
-                this.$refs[ref][0].focus();
-                return;
-            }
+        setFocus(ref) {
             setTimeout(() => {
                 this.$refs[ref][0].focus();
             }, 200);
+        },
+        restartLesson() {
+            let questions = JSON.parse(JSON.stringify(this.questions));
+            for (let i = 0; i < questions.length; i++) {
+                questions[i].is_active = false;
+                questions[i].answer = undefined;
+            }
+            questions[0].is_active = true;
+            this.isLessonComplete = false;
+            this.questions = questions;
         }
     }
 }
@@ -140,6 +152,7 @@ export default {
 }
 .next-button {
     margin-top: 40px;
+    display: block;
 }
 .correct {
     color: green;
