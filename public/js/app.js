@@ -1954,6 +1954,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'lesson',
@@ -20453,43 +20454,145 @@ var render = function() {
                     ),
                     _c("br"),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: question.answer,
-                          expression: "question.answer"
-                        }
-                      ],
-                      ref: "ref" + question.id,
-                      refInFor: true,
-                      staticClass: "text",
-                      domProps: { value: question.answer },
-                      on: {
-                        keyup: function($event) {
-                          if (
-                            !$event.type.indexOf("key") &&
-                            _vm._k(
-                              $event.keyCode,
-                              "enter",
-                              13,
-                              $event.key,
-                              "Enter"
-                            )
-                          ) {
-                            return null
+                    question.input_type === "checkbox"
+                      ? _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: question.answer,
+                              expression: "question.answer"
+                            }
+                          ],
+                          ref: "ref" + question.id,
+                          refInFor: true,
+                          staticClass: "text",
+                          attrs: { type: "checkbox" },
+                          domProps: {
+                            checked: Array.isArray(question.answer)
+                              ? _vm._i(question.answer, null) > -1
+                              : question.answer
+                          },
+                          on: {
+                            keyup: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return _vm.nextQuestion()
+                            },
+                            change: function($event) {
+                              var $$a = question.answer,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      question,
+                                      "answer",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      question,
+                                      "answer",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(question, "answer", $$c)
+                              }
+                            }
                           }
-                          return _vm.nextQuestion()
-                        },
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                        })
+                      : question.input_type === "radio"
+                      ? _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: question.answer,
+                              expression: "question.answer"
+                            }
+                          ],
+                          ref: "ref" + question.id,
+                          refInFor: true,
+                          staticClass: "text",
+                          attrs: { type: "radio" },
+                          domProps: { checked: _vm._q(question.answer, null) },
+                          on: {
+                            keyup: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return _vm.nextQuestion()
+                            },
+                            change: function($event) {
+                              return _vm.$set(question, "answer", null)
+                            }
                           }
-                          _vm.$set(question, "answer", $event.target.value)
-                        }
-                      }
-                    })
+                        })
+                      : _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: question.answer,
+                              expression: "question.answer"
+                            }
+                          ],
+                          ref: "ref" + question.id,
+                          refInFor: true,
+                          staticClass: "text",
+                          attrs: { type: question.input_type },
+                          domProps: { value: question.answer },
+                          on: {
+                            keyup: function($event) {
+                              if (
+                                !$event.type.indexOf("key") &&
+                                _vm._k(
+                                  $event.keyCode,
+                                  "enter",
+                                  13,
+                                  $event.key,
+                                  "Enter"
+                                )
+                              ) {
+                                return null
+                              }
+                              return _vm.nextQuestion()
+                            },
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(question, "answer", $event.target.value)
+                            }
+                          }
+                        })
                   ]
                 )
               ])

@@ -11,6 +11,7 @@
                     <input v-model="question.answer" class='text'
                         v-on:keyup.enter='nextQuestion()'
                         :ref='`ref${question.id}`'
+                        :type='question.input_type'
                     >
                 </div>
             </div>
@@ -52,7 +53,7 @@ export default {
         return {
             questions: [],
             isLessonComplete: false,
-            countOfMistakes: 0
+            countOfMistakes: 0,
         }
     },
     mounted() {
