@@ -7,12 +7,12 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}" id="maincss">
+        <link rel="stylesheet" href="/css/app.css" id="maincss">
     </head>
     <body>
         <div id="app">
             <router-view />
         </div>
         
-        <script src="{{ asset('js/app.js') }}"></script>
+        <script src='/js/app.js'></script>
 </html>
