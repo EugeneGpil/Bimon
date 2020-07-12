@@ -2106,7 +2106,6 @@ __webpack_require__.r(__webpack_exports__);
 
     axios.get("/api/subject?id=".concat(this.$route.params.id)).then(function (response) {
       _this.lessons = response.data.lessons;
-      console.log(_this.lessons);
     });
   }
 });

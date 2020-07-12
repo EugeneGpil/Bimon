@@ -21,7 +21,6 @@ export default {
     mounted() {
         axios.get(`/api/subject?id=${this.$route.params.id}`).then(response => {
             this.lessons = response.data.lessons
-            console.log(this.lessons);
         });
     }
 }
