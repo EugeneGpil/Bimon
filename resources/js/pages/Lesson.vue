@@ -64,7 +64,8 @@ export default {
     },
     mounted() {
         axios.get(`/api/lesson?id=${this.$route.params.id}`).then(response => {
-            this.questions = this.$store.getters.getQuestions(response.data.questions);
+            // this.questions = this.$store.getters.getQuestions(response.data.questions);
+            this.questions = response.data.questions;
             this.questions[0].is_active = true;
         });
     },

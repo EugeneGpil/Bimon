@@ -4,14 +4,21 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Lesson;
+use App\Services\Lesson\LessonService;
 
 class LessonsController extends Controller
 {
+    protected $lessonService;
+
+    public function __construct(LessonService $lessonService)
+    {
+        $this->lessonService = $lessonService;
+    }
+
     public function get(Request $request)
     {
         return response()->json(
-            Lesson::where('id', $request->id)->with('questions')->first()
+            $this->lessonService->get($request)
         );
     }
 }

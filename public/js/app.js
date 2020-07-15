@@ -1975,7 +1975,8 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios.get("/api/lesson?id=".concat(this.$route.params.id)).then(function (response) {
-      _this.questions = _this.$store.getters.getQuestions(response.data.questions);
+      // this.questions = this.$store.getters.getQuestions(response.data.questions);
+      _this.questions = response.data.questions;
       _this.questions[0].is_active = true;
     });
   },

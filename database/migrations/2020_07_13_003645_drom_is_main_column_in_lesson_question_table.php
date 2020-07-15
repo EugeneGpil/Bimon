@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddInputTypeColumnToQuestions extends Migration
+class DromIsMainColumnInLessonQuestionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddInputTypeColumnToQuestions extends Migration
      */
     public function up()
     {
-        Schema::table('questions', function (Blueprint $table) {
-            $table->string('input_type')->default('string');
+        Schema::table('lesson_question', function (Blueprint $table) {
+            $table->dropColumn('is_main');
         });
     }
 
@@ -25,8 +25,8 @@ class AddInputTypeColumnToQuestions extends Migration
      */
     public function down()
     {
-        Schema::table('questions', function (Blueprint $table) {
-            $table->dropColumn('input_type');
+        Schema::table('lesson_question', function (Blueprint $table) {
+            $table->boolean('is_main')->default(false);
         });
     }
 }

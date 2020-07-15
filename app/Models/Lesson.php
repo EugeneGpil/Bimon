@@ -8,6 +8,6 @@ class Lesson extends Model
 {
     public function questions()
     {
-        return $this->belongsToMany('App\Models\Question')->withPivot('is_main');
+        return $this->belongsToMany('App\Models\Question');
     }
 }
